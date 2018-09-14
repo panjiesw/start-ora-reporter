@@ -22,7 +22,7 @@ export default (task: string) => {
     spinners[
       plugin
       // tslint:disable-next-line:ter-max-len
-    ].text = chalk`Running {cyan.bold ${task}}.{magenta ${plugin}}: {yellow.underline ${message}}`;
+    ].text = chalk`Running {cyan.bold ${task}}.{magenta ${plugin}}: {yellow ${message}}`;
   });
 
   emitter.on('file', (plugin: string) => {
@@ -34,7 +34,7 @@ export default (task: string) => {
     spinners[
       plugin
       // tslint:disable-next-line:ter-max-len
-    ].text = chalk`Running {cyan.bold ${task}}.{magenta ${plugin}}: {blue.underline processed ${fileCounts[
+    ].text = chalk`Running {cyan.bold ${task}}.{magenta ${plugin}}: {blue processed ${fileCounts[
       plugin
     ].toString()}}`;
   });
@@ -43,33 +43,33 @@ export default (task: string) => {
     const files = fileCounts[plugin];
     let message = '';
     if (files) {
-      message = `: processed ${files} files`;
+      message = chalk`: {green processed ${files.toString()} files}`;
     }
 
     spinners[plugin].succeed(
       // tslint:disable-next-line:ter-max-len
-      chalk`Finished {cyan.bold ${task}}.{magenta ${plugin}}{green.underline ${message}}`,
+      chalk`Finished {cyan.bold ${task}}.{magenta ${plugin}}${message}`,
     );
   });
 
   emitter.on('error', (plugin: string, error: StartError) => {
     if (error instanceof Error) {
       spinners[plugin].fail(
-        `Error on {cyan.bold ${task}}.{magenta ${plugin}}: {red.underline ${
+        `Error on {cyan.bold ${task}}.{magenta ${plugin}}: {red ${
           error.message
         }}`,
       );
     } else if (Array.isArray(error)) {
       spinners[plugin].fail(
         // tslint:disable-next-line:ter-max-len
-        `Errors on {cyan.bold ${task}}.{magenta ${plugin}}: {red.underline ${JSON.stringify(
+        `Errors on {cyan.bold ${task}}.{magenta ${plugin}}: {red ${JSON.stringify(
           error,
         )}}`,
       );
     } else if (typeof error === 'string') {
       spinners[plugin].fail(
         // tslint:disable-next-line:ter-max-len
-        `Error on {cyan.bold ${task}}.{magenta ${plugin}}: {red.underline ${error}}`,
+        `Error on {cyan.bold ${task}}.{magenta ${plugin}}: {red ${error}}`,
       );
     } else {
       spinners[plugin].fail(`Error on {cyan.bold ${task}}.{magenta ${plugin}}`);
