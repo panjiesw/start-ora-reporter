@@ -2,6 +2,10 @@
 
 [start](https://github.com/deepsweet/start) task runner reporter with nice loading spinner.
 
+<p align="center">
+	<img src="https://cdn.rawgit.com/panjiesw/start-ora-reporter/master/docs/report.svg" width="629">
+</p>
+
 ## Usage
 
 install using NPM
