@@ -1,0 +1,44 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tslint.enable": true,
+  "tslint.ignoreDefinitionFiles": true,
+  "tslint.jsEnable": true,
+  "tslint.exclude": [
+    "**/dist/**",
+    "**/lib/**",
+    "**/cjs/**",
+    "**/esm/**",
+    "**/node_modules/**"
+  ],
+  "editor.insertSpaces": true,
+  "editor.rulers": [80],
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/.idea": true,
+    "**/.iml": true
+  },
+  "eslint.enable": false,
+  "xo.enable": false,
+  "docthis.includeMemberOfOnClassMembers": false,
+  "docthis.includeMemberOfOnInterfaceMembers": false,
+  "docthis.includeTypes": false,
+  "cSpell.ignorePaths": [
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/**",
+    ".vscode",
+    "typings",
+    "**/*.lock"
+  ],
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.useTabs": false,
+  "prettier.trailingComma": "all",
+  "prettier.printWidth": 80,
+  "licenser.license": "MIT",
+  "licenser.useSingleLineStyle": false
+}

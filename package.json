@@ -1,0 +1,56 @@
+{
+  "name": "start-ora-reporter",
+  "version": "0.1.0",
+  "description": "start task runner reporter with nice loading spinner",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panjiesw/start-ora-reporter.git"
+  },
+  "keywords": [
+    "task",
+    "runner",
+    "start",
+    "reporter",
+    "ora"
+  ],
+  "author": "Panjie Setiawan Wicaksono <panjie@panjiesw.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/panjiesw/start-ora-reporter/issues"
+  },
+  "homepage": "https://github.com/panjiesw/start-ora-reporter#readme",
+  "scripts": {
+    "build": "run-p compile lint",
+    "compile": "tsc",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "precommit": "lint-staged"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "ora": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.10.29",
+    "@types/ora": "^1.3.4",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
+    "npm-run-all": "^4.1.3",
+    "prettier": "^1.14.2",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.0.3"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "tslint -e **/*.d.ts --fix",
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
