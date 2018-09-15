@@ -6,6 +6,10 @@
 	<img src="https://cdn.rawgit.com/panjiesw/start-ora-reporter/master/docs/report.svg" width="629">
 </p>
 
+## Notice
+
+This still has much rough edges, like the spinners overlapping each other.
+
 ## Usage
 
 install using NPM
