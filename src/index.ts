@@ -16,7 +16,7 @@ export default (task: string) => {
     if (plugin !== 'watch') {
       if (!spinners[k]) {
         spinners[k] = ora({
-          text: chalk`Running {cyan.bold ${task}}.{magenta ${plugin}}`,
+          text: `Running ${chalk.cyan.bold(task)}.${chalk.magenta(plugin)}`,
         });
       }
       spinners[k].start();
@@ -25,14 +25,15 @@ export default (task: string) => {
 
   emitter.on('message', (plugin: string, message: string) => {
     if (plugin !== 'watch') {
-      spinners[
-        key(task, plugin)
-        // tslint:disable-next-line:ter-max-len
-      ].text = chalk`Running {cyan.bold ${task}}.{magenta ${plugin}}: {yellow ${message}}`;
+      spinners[key(task, plugin)].text = `Running ${chalk.cyan.bold(
+        task,
+      )}.${chalk.magenta(plugin)}: ${chalk.yellow(message)}`;
     } else {
-      // tslint:disable-next-line
+      // tslint:disable-next-line:no-console
       console.log(
-        chalk`{cyan.bold ${task}}.{magenta ${plugin}}: {yellow ${message}}`,
+        `${chalk.cyan.bold(task)}.${chalk.magenta(plugin)}: ${chalk.yellow(
+          message,
+        )}`,
       );
     }
   });
@@ -44,12 +45,9 @@ export default (task: string) => {
     }
     fileCounts[k] += 1;
 
-    spinners[
-      k
-      // tslint:disable-next-line:ter-max-len
-    ].text = chalk`Running {cyan.bold ${task}}.{magenta ${plugin}}: {blue processed ${fileCounts[
-      k
-    ].toString()}}`;
+    spinners[k].text = `Running ${chalk.cyan.bold(task)}.${chalk.magenta(
+      plugin,
+    )}: ${chalk.blue(`processed ${fileCounts[k].toString()}`)}`;
   });
 
   emitter.on('done', (plugin: string) => {
@@ -57,12 +55,11 @@ export default (task: string) => {
     const files = fileCounts[k];
     let message = '';
     if (files) {
-      message = chalk`: {green processed ${files.toString()} files}`;
+      message = `: ${chalk.green(`processed ${files.toString()} files`)}`;
     }
 
     spinners[k].succeed(
-      // tslint:disable-next-line:ter-max-len
-      chalk`Finished {cyan.bold ${task}}.{magenta ${plugin}}${message}`,
+      `Finished ${chalk.cyan.bold(task)}.${chalk.magenta(plugin)}${message}`,
     );
     fileCounts[k] = 0;
   });
@@ -71,24 +68,26 @@ export default (task: string) => {
     const k = key(task, plugin);
     if (error instanceof Error) {
       spinners[k].fail(
-        `Error on {cyan.bold ${task}}.{magenta ${plugin}}: {red ${
-          error.message
-        }}`,
+        `Error on ${chalk.cyan.bold(task)}.${chalk.magenta(
+          plugin,
+        )}: ${chalk.red(error.message)}`,
       );
     } else if (Array.isArray(error)) {
       spinners[k].fail(
-        // tslint:disable-next-line:ter-max-len
-        `Errors on {cyan.bold ${task}}.{magenta ${plugin}}: {red ${JSON.stringify(
-          error,
-        )}}`,
+        `Errors on ${chalk.cyan.bold(task)}.${chalk.magenta(
+          plugin,
+        )}: ${chalk.red(JSON.stringify(error))}`,
       );
     } else if (typeof error === 'string') {
       spinners[k].fail(
-        // tslint:disable-next-line:ter-max-len
-        `Error on {cyan.bold ${task}}.{magenta ${plugin}}: {red ${error}}`,
+        `Error on ${chalk.cyan.bold(task)}.${chalk.magenta(
+          plugin,
+        )}: ${chalk.red(error)}`,
       );
     } else {
-      spinners[k].fail(`Error on {cyan.bold ${task}}.{magenta ${plugin}}`);
+      spinners[k].fail(
+        `Error on ${chalk.cyan.bold(task)}.${chalk.magenta(plugin)}`,
+      );
     }
   });
 
