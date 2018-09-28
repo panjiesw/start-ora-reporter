@@ -1,5 +1,5 @@
 {
-  "name": "start-ora-reporter",
+  "name": "start-reporter-ora",
   "version": "0.2.1",
   "description": "start task runner reporter with nice loading spinner",
   "main": "lib/index.js",
@@ -8,7 +8,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/panjiesw/start-ora-reporter.git"
+    "url": "git+https://github.com/panjiesw/start-reporter-ora.git"
   },
   "keywords": [
     "task",
@@ -20,9 +20,9 @@
   "author": "Panjie Setiawan Wicaksono <panjie@panjiesw.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/panjiesw/start-ora-reporter/issues"
+    "url": "https://github.com/panjiesw/start-reporter-ora/issues"
   },
-  "homepage": "https://github.com/panjiesw/start-ora-reporter#readme",
+  "homepage": "https://github.com/panjiesw/start-reporter-ora#readme",
   "scripts": {
     "build": "run-p compile lint",
     "compile": "tsc",

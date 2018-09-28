@@ -1,9 +1,9 @@
-# start-ora-reporter
+# start-reporter-ora
 
 [start](https://github.com/deepsweet/start) task runner reporter with nice loading spinner.
 
 <p align="center">
-	<img src="https://cdn.rawgit.com/panjiesw/start-ora-reporter/master/docs/report.svg" width="629">
+	<img src="https://cdn.rawgit.com/panjiesw/start-reporter-ora/master/docs/report.svg" width="629">
 </p>
 
 ## Notice
@@ -15,13 +15,13 @@ This still has much rough edges, like the spinners overlapping each other.
 install using NPM
 
 ```sh
-npm install --save-dev start-ora-reporter
+npm install --save-dev start-reporter-ora
 ```
 
 or Yarn
 
 ```sh
-yarn add -D start-ora-reporter
+yarn add -D start-reporter-ora
 ```
 
 Add it to your `"start"` config stanza in `package.json`
@@ -29,7 +29,7 @@ Add it to your `"start"` config stanza in `package.json`
 ```json
 ...
 "start": {
-  "reporter": "start-ora-reporter"
+  "reporter": "start-reporter-ora"
 },
 ```
 
