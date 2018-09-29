@@ -1,42 +1,56 @@
+import { resolve } from 'path';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import EventEmitter from 'events';
 import chalk from 'chalk';
 import ora from 'ora';
+import mkdirp from 'mkdirp';
 
 type StartError = Error | string[] | string | null;
 
 const key = (task: string, plugin: string) => `${task}.${plugin}`;
 
-/**
- * Hash code adapted from java and modified as needed.
- *
- * @param str String to calculate hash code
- */
-const hash = (str: string) => {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) {
-    const code = str.charCodeAt(i);
-    // tslint:disable-next-line:no-bitwise
-    h = (h << 5) - h + code;
-    // tslint:disable-next-line:no-bitwise
-    h = h & h;
-  }
-  return h;
+const idxDir = () => resolve('node_modules', '.cache', 'start');
+
+const idxFile = () => resolve(idxDir(), 'idx');
+
+const mkdir = () => {
+  mkdirp.sync(idxDir());
 };
 
+const setIdx = (idx: number = 0) => {
+  writeFileSync(idxFile(), idx);
+};
+
+const readIdx = () => {
+  const file = idxFile();
+  if (existsSync(file)) {
+    const res = readFileSync(file, 'utf8');
+    const idx = parseInt(res, 10);
+    setIdx(idx + 1);
+    return idx;
+  }
+  setIdx();
+  return 0;
+};
+
+mkdir();
+
 const bannedStart = ['parallel', 'xargs'];
-const colors = ['cyan', 'green', 'blue', 'red', 'yellow', 'magenta'];
+const colors = ['cyan', 'magenta', 'blue', 'yellow', 'green', 'red'];
 const NUM_COLOR = colors.length;
 
 export default (task: string) => {
   const emitter = new EventEmitter();
-  const color = colors[Math.abs(hash(task)) % NUM_COLOR];
+  const color = colors[readIdx() % NUM_COLOR];
   const spinners: { [index: string]: any } = {};
   const fileCounts: { [index: string]: number } = {};
+  let count = 0;
 
   emitter.on('start', (plugin: string) => {
     const k = key(task, plugin);
     if (!bannedStart.includes(plugin)) {
       if (!spinners[k]) {
+        count += 1;
         spinners[k] = ora({
           text: `${chalk[color].bold(task)} ${chalk.white.bold(plugin)}`,
         });
@@ -82,6 +96,11 @@ export default (task: string) => {
         `${chalk[color].bold(task)} ${chalk.white.bold(plugin)}${message}`,
       );
       fileCounts[k] = 0;
+      count -= 1;
+    }
+
+    if (count <= 0) {
+      setIdx();
     }
   });
 
@@ -111,6 +130,11 @@ export default (task: string) => {
           `${chalk[color].bold(task)} ${chalk.white.bold(plugin)}`,
         );
       }
+      count -= 1;
+    }
+
+    if (count <= 0) {
+      setIdx();
     }
   });
 
