@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/panjiesw/start-reporter-ora#readme",
   "scripts": {
-    "build": "run-p compile lint",
+    "build": "npm-run-all clean --parallel lint compile",
+    "clean": "rimraf lib",
     "compile": "tsc",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepare": "npm-run-all clean --parallel lint compile"
   },
   "dependencies": {
     "chalk": "^2.4.1",
